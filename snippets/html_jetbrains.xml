@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templateSet group="html">
+  <template name="view-transition" value="&lt;div id=&#34;page-content&#34; style=&#34;view-transition-name: page;&#34;&gt;
+    $html$
+&lt;/div&gt;
+" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true"/>
+    </context>
+  </template>
+  <template name="reload html" value="&lt;!doctype html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+    &lt;meta charset=&#34;UTF-8&#34;&gt;
+    &lt;title&gt;Reload&lt;/title&gt;
+    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&#34;&gt;
+    &lt;meta http-equiv=&#34;X-UA-Compatible&#34; content=&#34;ie=edge&#34;&gt;
+    &lt;link rel=&#34;icon&#34; href=&#34;/public/favicon.ico&#34; type=&#34;image/x-icon&#34; /&gt;
+    &lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css&#34;&gt;
+    &lt;style&gt;
+        /* Colors */
+        :root {
+            --bg-color: #ecf0f1;
+            --text-color: #2c3e50;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        #contentFrame {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 60px);
+            border: none;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; /* new border radius */
+        }
+
+        #navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #fileSelect {
+            position: absolute;
+            left: 10px; /* Adjust as needed */
+            top: 17px; /* Adjust as needed */
+            max-width: 170px;
+            color: #2c3e50;
+            border: none;
+            background-color: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #fileSelect:focus {
+            outline: none; /* remove focus outline */
+        }
+
+        /* Style the dropdown options */
+        #fileSelect option {
+            padding: 5px 10px;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        #iconContainer {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon {
+            width: 25px;
+            height: 30px;
+            background-color: #ecf0f1;
+            border-radius: 15%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .icon:hover {
+            background-color: #bdc3c7;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&#34;navbar&#34;&gt;
+    &lt;select id=&#34;fileSelect&#34; onchange=&#34;loadFile()&#34;&gt;
+        &lt;option value=&#34;&#34;&gt;Select a file&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;div id=&#34;iconContainer&#34;&gt;
+        &lt;div class=&#34;icon&#34;
+             onclick=&#34;setIframeWidth(&#39;mobile&#39;)&#34;&gt;
+            &lt;i class=&#34;fas fa-mobile-alt&#34;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;icon&#34;
+             onclick=&#34;setIframeWidth(&#39;tablet&#39;)&#34;&gt;
+            &lt;i class=&#34;fas fa-tablet-alt&#34;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;icon&#34;
+             onclick=&#34;setIframeWidth(&#39;fullscreen&#39;)&#34;&gt;
+            &lt;i class=&#34;fas fa-desktop&#34;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;iframe id=&#34;contentFrame&#34; src=&#34;http://localhost:8080&#34;&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+    const socket = new WebSocket(&#34;ws://localhost:8080/ws&#34;);
+    socket.onmessage = function(event) {
+        if (event.data === &#34;reload&#34;) {
+            document.getElementById(&#39;contentFrame&#39;).contentWindow.location.reload();
+        }
+    };
+    socket.onclose = function() {
+        console.log(&#34;WebSocket closed, attempting to reconnect...&#34;);
+        setTimeout(() =&gt; window.location.reload(), 3000);
+    };
+
+    function setIframeWidth(device) {
+        var iframe = document.getElementById(&#39;contentFrame&#39;);
+        switch (device) {
+            case &#39;mobile&#39;:
+                iframe.style.width = &#39;375px&#39;;
+                iframe.style.left = &#39;0&#39;;
+                iframe.style.right = &#39;0&#39;;
+                iframe.style.margin = &#39;auto&#39;;
+                break;
+            case &#39;tablet&#39;:
+                iframe.style.width = &#39;768px&#39;;
+                iframe.style.left = &#39;0&#39;;
+                iframe.style.right = &#39;0&#39;;
+                iframe.style.margin = &#39;auto&#39;;
+                break;
+            default:
+                iframe.style.width = &#39;100%&#39;;
+                iframe.style.left = &#39;0&#39;;
+                iframe.style.right = &#39;0&#39;;
+                iframe.style.margin = &#39;0&#39;;
+        }
+        localStorage.setItem(&#39;device&#39;, device);
+    }
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true"/>
+    </context>
+  </template>
+  <template name="air windows" value="# .air.toml (Windows)
+root = &#34;.&#34;
+tmp_dir = &#34;_air&#34;
+
+[build]
+# Command to build your application (note the .exe extension)
+cmd = &#34;go build -o _air\\main.exe .&#34;
+# Name of the resulting binary
+bin = &#34;_air\\main.exe&#34;
+# File extensions to watch
+include_ext = [&#34;go&#34;]
+# Directories to exclude from watching
+exclude_dir = [&#34;src&#34;, &#34;.git&#34;, &#34;node_modules&#34;, &#34;.idea&#34;]
+# Delay between rebuilds in milliseconds
+delay = 1000
+
+[color]
+main = &#34;yellow&#34;
+watcher = &#34;cyan&#34;
+build = &#34;green&#34;
+
+" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true"/>
+    </context>
+  </template>
+  <template name="env variables for boilerplate linux" value="# Golang App
+export smtpPass=&#34;ccnc-baap-aygn-zuao&#34;
+export smtpUser=&#34;andreinita@icloud.com&#34;
+export secretKey=&#34;&lt;!cevadestuldesigur32caractere!&gt;&#34;
+export tokenKey=&#34;altcevadestuldesigur32caractere!&#34;
+" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true"/>
+    </context>
+  </template>
+  <template name="env file for gostart" value="BASE_URL=http://localhost:4444
+HTTP_PORT=4444
+BASIC_AUTH_USERNAME=admin
+BASIC_AUTH_HASHED_PASSWORD=$2a$10$jRb2qniNcoCyQM23T59RfeEQUbgdAXfR6S0scynmKfJa5Gj3arGJa
+COOKIE_SECRET_KEY=2fjfyjw2of6qgqub2clf5e4lqnzc4ysq
+DB_DSN=db.sqlite
+DB_AUTOMIGRATE=true
+NOTIFICATIONS_EMAIL=
+SESSION_SECRET_KEY=j6ska6mu6vqboimnlrumg6shljighxes
+SESSION_OLD_SECRET_KEY=
+SMTP_HOST=example.smtp.host
+SMTP_PORT=25
+SMTP_USERNAME=example_username
+SMTP_PASSWORD=pa55word
+SMTP_FROM=Example Name &lt;no_reply@example.org&gt;
+" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true"/>
+    </context>
+  </template>
+</templateSet>

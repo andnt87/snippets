@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templateSet group="js">
+  <template name="fetch ajax" value="fetch(&#39;/dynamic-content&#39;)
+    .then(response =&gt; response.text())
+    .then(data =&gt; {
+        document.getElementById(&#39;dynamic-content&#39;).innerHTML = data;
+    });
+" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true"/>
+    </context>
+  </template>
+  <template name="w3js" value="/* W3.JS 1.04 April 2019 by w3schools.com */
+&#34;use strict&#34;;
+var w3 = {};
+w3.hide = function (sel) {
+    w3.hideElements(w3.getElements(sel));
+};
+w3.hideElements = function (elements) {
+    var i, l = elements.length;
+    for (i = 0; i &lt; l; i++) {
+        w3.hideElement(elements[i]);
+    }
+};
+w3.hideElement = function (element) {
+    w3.styleElement(element, &#34;display&#34;, &#34;none&#34;);
+};
+w3.show = function (sel, a) {
+    var elements = w3.getElements(sel);
+    if (a) {w3.hideElements(elements);}
+    w3.showElements(elements);
+};
+w3.showElements = function (elements) {
+    var i, l = elements.length;
+    for (i = 0; i &lt; l; i++) {
+        w3.showElement(elements[i]);
+    }
+};
+w3.showElement = function (element) {
+    w3.styleElement(element, &#34;display&#34;, &#34;block&#34;);
+};
+w3.addStyle = function (sel, prop, val) {
+    w3.styleElements(w3.getElements(sel), prop, val);
+};
+w3.styleElements = function (elements, prop, val) {
+    var i, l = elements.length;
+    for (i = 0; i &lt; l; i++) {
+        w3.styleElement(elements[i], prop, val);
+    }
+};
+w3.styleElement = function (element, prop, val) {
+    element.style.setProperty(prop, val);
+};
+w3.toggleShow = function (sel) {
+    var i, x = w3.getElements(sel), l = x.length;
+    for (i = 0; i &lt; l; i++) {
+        if (x[i].style.display == &#34;none&#34;) {
+            w3.styleElement(x[i], &#34;display&#34;, &#34;block&#34;);
+        } else {
+            w3.styleElement(x[i], &#34;display&#34;, &#34;none&#34;);
+        }
+    }
+};
+w3.addClass = function (sel, name) {
+    w3.addClassElements(w3.getElements(sel), name);
+};
+w3.addClassElements = function (elements, name) {
+    var i, l = elements.length;
+    for (i = 0; i &lt; l; i++) {
+        w3.addClassElement(elements[i], name);
+    }
+};
+w3.addClassElement = function (element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(&#34; &#34;);
+    arr2 = name.split(&#34; &#34;);
+    for (i = 0; i &lt; arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {element.className += &#34; &#34; + arr2[i];}
+    }
+};
+w3.removeClass = function (sel, name) {
+    w3.removeClassElements(w3.getElements(sel), name);
+};
+w3.removeClassElements = function (elements, name) {
+    var i, l = elements.length, arr1, arr2, j;
+    for (i = 0; i &lt; l; i++) {
+        w3.removeClassElement(elements[i], name);
+    }
+};
+w3.removeClassElement = function (element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(&#34; &#34;);
+    arr2 = name.split(&#34; &#34;);
+    for (i = 0; i &lt; arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) &gt; -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }
+    }
+    element.className = arr1.join(&#34; &#34;);
+};
+w3.toggleClass = function (sel, c1, c2) {
+    w3.toggleClassElements(w3.getElements(sel), c1, c2);
+};
+w3.toggleClassElements = function (elements, c1, c2) {
+    var i, l = elements.length;
+    for (i = 0; i &lt; l; i++) {
+        w3.toggleClassElement(elements[i], c1, c2);
+    }
+};
+w3.toggleClassElement = function (element, c1, c2) {
+    var t1, t2, t1Arr, t2Arr, j, arr, allPresent;
+    t1 = (c1 || &#34;&#34;);
+    t2 = (c2 || &#34;&#34;);
+    t1Arr = t1.split(&#34; &#34;);
+    t2Arr = t2.split(&#34; &#34;);
+    arr = element.className.split(&#34; &#34;);
+    if (t2Arr.length == 0) {
+        allPresent = true;
+        for (j = 0; j &lt; t1Arr.length; j++) {
+            if (arr.indexOf(t1Arr[j]) == -1) {allPresent = false;}
+        }
+        if (allPresent) {
+            w3.removeClassElement(element, t1);
+        } else {
+            w3.addClassElement(element, t1);
+        }
+    } else {
+        allPresent = true;
+        for (j = 0; j &lt; t1Arr.length; j++) {
+            if (arr.indexOf(t1Arr[j]) == -1) {allPresent = false;}
+        }
+        if (allPresent) {
+            w3.removeClassElement(element, t1);
+            w3.addClassElement(element, t2);
+        } else {
+            w3.removeClassElement(element, t2);
+            w3.addClassElement(element, t1);
+        }
+    }
+};
+w3.getElements = function (id) {
+    if (typeof id == &#34;object&#34;) {
+        return [id];
+    } else {
+        return document.querySelectorAll(id);
+    }
+};
+w3.filterHTML = function(id, sel, filter) {
+    var a, b, c, i, ii, iii, hit;
+    a = w3.getElements(id);
+    for (i = 0; i &lt; a.length; i++) {
+        b = a[i].querySelectorAll(sel);
+        for (ii = 0; ii &lt; b.length; ii++) {
+            hit = 0;
+            if (b[ii].innerText.toUpperCase().indexOf(filter.toUpperCase()) &gt; -1) {
+                hit = 1;
+            }
+            c = b[ii].getElementsByTagName(&#34;*&#34;);
+            for (iii = 0; iii &lt; c.length; iii++) {
+                if (c[iii].innerText.toUpperCase().indexOf(filter.toUpperCase()) &gt; -1) {
+                    hit = 1;
+                }
+            }
+            if (hit == 1) {
+                b[ii].style.display = &#34;&#34;;
+            } else {
+                b[ii].style.display = &#34;none&#34;;
+            }
+        }
+    }
+};
+w3.sortHTML = function(id, sel, sortvalue) {
+    var a, b, i, ii, y, bytt, v1, v2, cc, j;
+    a = w3.getElements(id);
+    for (i = 0; i &lt; a.length; i++) {
+        for (j = 0; j &lt; 2; j++) {
+            cc = 0;
+            y = 1;
+            while (y == 1) {
+                y = 0;
+                b = a[i].querySelectorAll(sel);
+                for (ii = 0; ii &lt; (b.length - 1); ii++) {
+                    bytt = 0;
+                    if (sortvalue) {
+                        v1 = b[ii].querySelector(sortvalue).innerText;
+                        v2 = b[ii + 1].querySelector(sortvalue).innerText;
+                    } else {
+                        v1 = b[ii].innerText;
+                        v2 = b[ii + 1].innerText;
+                    }
+                    v1 = v1.toLowerCase();
+                    v2 = v2.toLowerCase();
+                    if ((j == 0 &amp;&amp; (v1 &gt; v2)) || (j == 1 &amp;&amp; (v1 &lt; v2))) {
+                        bytt = 1;
+                        break;
+                    }
+                }
+                if (bytt == 1) {
+                    b[ii].parentNode.insertBefore(b[ii + 1], b[ii]);
+                    y = 1;
+                    cc++;
+                }
+            }
+            if (cc &gt; 0) {break;}
+        }
+    }
+};
+w3.slideshow = function (sel, ms, func) {
+    var i, ss, x = w3.getElements(sel), l = x.length;
+    ss = {};
+    ss.current = 1;
+    ss.x = x;
+    ss.ondisplaychange = func;
+    if (!isNaN(ms) || ms == 0) {
+        ss.milliseconds = ms;
+    } else {
+        ss.milliseconds = 1000;
+    }
+    ss.start = function() {
+        ss.display(ss.current)
+        if (ss.ondisplaychange) {ss.ondisplaychange();}
+        if (ss.milliseconds &gt; 0) {
+            window.clearTimeout(ss.timeout);
+            ss.timeout = window.setTimeout(ss.next, ss.milliseconds);
+        }
+    };
+    ss.next = function() {
+        ss.current += 1;
+        if (ss.current &gt; ss.x.length) {ss.current = 1;}
+        ss.start();
+    };
+    ss.previous = function() {
+        ss.current -= 1;
+        if (ss.current &lt; 1) {ss.current = ss.x.length;}
+        ss.start();
+    };
+    ss.display = function (n) {
+        w3.styleElements(ss.x, &#34;display&#34;, &#34;none&#34;);
+        w3.styleElement(ss.x[n - 1], &#34;display&#34;, &#34;block&#34;);
+    }
+    ss.start();
+    return ss;
+};
+w3.includeHTML = function(cb) {
+    var z, i, elmnt, file, xhttp;
+    z = document.getElementsByTagName(&#34;*&#34;);
+    for (i = 0; i &lt; z.length; i++) {
+        elmnt = z[i];
+        file = elmnt.getAttribute(&#34;w3-include-html&#34;);
+        if (file) {
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = &#34;Page not found.&#34;;}
+                    elmnt.removeAttribute(&#34;w3-include-html&#34;);
+                    w3.includeHTML(cb);
+                }
+            }
+            xhttp.open(&#34;GET&#34;, file, true);
+            xhttp.send();
+            return;
+        }
+    }
+    if (cb) cb();
+};
+w3.getHttpData = function (file, func) {
+    w3.http(file, function () {
+        if (this.readyState == 4 &amp;&amp; this.status == 200) {
+            func(this.responseText);
+        }
+    });
+};
+w3.getHttpObject = function (file, func) {
+    w3.http(file, function () {
+        if (this.readyState == 4 &amp;&amp; this.status == 200) {
+            func(JSON.parse(this.responseText));
+        }
+    });
+};
+w3.displayHttp = function (id, file) {
+    w3.http(file, function () {
+        if (this.readyState == 4 &amp;&amp; this.status == 200) {
+            w3.displayObject(id, JSON.parse(this.responseText));
+        }
+    });
+};
+w3.http = function (target, readyfunc, xml, method) {
+    var httpObj;
+    if (!method) {method = &#34;GET&#34;; }
+    if (window.XMLHttpRequest) {
+        httpObj = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        httpObj = new ActiveXObject(&#34;Microsoft.XMLHTTP&#34;);
+    }
+    if (httpObj) {
+        if (readyfunc) {httpObj.onreadystatechange = readyfunc;}
+        httpObj.open(method, target, true);
+        httpObj.send(xml);
+    }
+};
+w3.getElementsByAttribute = function (x, att) {
+    var arr = [], arrCount = -1, i, l, y = x.getElementsByTagName(&#34;*&#34;), z = att.toUpperCase();
+    l = y.length;
+    for (i = -1; i &lt; l; i += 1) {
+        if (i == -1) {y[i] = x;}
+        if (y[i].getAttribute(z) !== null) {arrCount += 1; arr[arrCount] = y[i];}
+    }
+    return arr;
+};
+w3.dataObject = {},
+    w3.displayObject = function (id, data) {
+        var htmlObj, htmlTemplate, html, arr = [], a, l, rowClone, x, j, i, ii, cc, repeat, repeatObj, repeatX = &#34;&#34;;
+        htmlObj = document.getElementById(id);
+        htmlTemplate = init_template(id, htmlObj);
+        html = htmlTemplate.cloneNode(true);
+        arr = w3.getElementsByAttribute(html, &#34;w3-repeat&#34;);
+        l = arr.length;
+        for (j = (l - 1); j &gt;= 0; j -= 1) {
+            cc = arr[j].getAttribute(&#34;w3-repeat&#34;).split(&#34; &#34;);
+            if (cc.length == 1) {
+                repeat = cc[0];
+            } else {
+                repeatX = cc[0];
+                repeat = cc[2];
+            }
+            arr[j].removeAttribute(&#34;w3-repeat&#34;);
+            repeatObj = data[repeat];
+            if (repeatObj &amp;&amp; typeof repeatObj == &#34;object&#34; &amp;&amp; repeatObj.length != &#34;undefined&#34;) {
+                i = 0;
+                for (x in repeatObj) {
+                    i += 1;
+                    rowClone = arr[j];
+                    rowClone = w3_replace_curly(rowClone, &#34;element&#34;, repeatX, repeatObj[x]);
+                    a = rowClone.attributes;
+                    for (ii = 0; ii &lt; a.length; ii += 1) {
+                        a[ii].value = w3_replace_curly(a[ii], &#34;attribute&#34;, repeatX, repeatObj[x]).value;
+                    }
+                    (i === repeatObj.length) ? arr[j].parentNode.replaceChild(rowClone, arr[j]) : arr[j].parentNode.insertBefore(rowClone, arr[j]);
+                }
+            } else {
+                console.log(&#34;w3-repeat must be an array. &#34; + repeat + &#34; is not an array.&#34;);
+                continue;
+            }
+        }
+        html = w3_replace_curly(html, &#34;element&#34;);
+        htmlObj.parentNode.replaceChild(html, htmlObj);
+        function init_template(id, obj) {
+            var template;
+            template = obj.cloneNode(true);
+            if (w3.dataObject.hasOwnProperty(id)) {return w3.dataObject[id];}
+            w3.dataObject[id] = template;
+            return template;
+        }
+        function w3_replace_curly(elmnt, typ, repeatX, x) {
+            var value, rowClone, pos1, pos2, originalHTML, lookFor, lookForARR = [], i, cc, r;
+            rowClone = elmnt.cloneNode(true);
+            pos1 = 0;
+            while (pos1 &gt; -1) {
+                originalHTML = (typ == &#34;attribute&#34;) ? rowClone.value : rowClone.innerHTML;
+                pos1 = originalHTML.indexOf(&#34;{{&#34;, pos1);
+                if (pos1 === -1) {break;}
+                pos2 = originalHTML.indexOf(&#34;}}&#34;, pos1 + 1);
+                lookFor = originalHTML.substring(pos1 + 2, pos2);
+                lookForARR = lookFor.split(&#34;||&#34;);
+                value = undefined;
+                for (i = 0; i &lt; lookForARR.length; i += 1) {
+                    lookForARR[i] = lookForARR[i].replace(/^\s+|\s+$/gm, &#39;&#39;); //trim
+                    if (x) {value = x[lookForARR[i]];}
+                    if (value == undefined &amp;&amp; data) {value = data[lookForARR[i]];}
+                    if (value == undefined) {
+                        cc = lookForARR[i].split(&#34;.&#34;);
+                        if (cc[0] == repeatX) {value = x[cc[1]]; }
+                    }
+                    if (value == undefined) {
+                        if (lookForARR[i] == repeatX) {value = x;}
+                    }
+                    if (value == undefined) {
+                        if (lookForARR[i].substr(0, 1) == &#39;&#34;&#39;) {
+                            value = lookForARR[i].replace(/&#34;/g, &#34;&#34;);
+                        } else if (lookForARR[i].substr(0,1) == &#34;&#39;&#34;) {
+                            value = lookForARR[i].replace(/&#39;/g, &#34;&#34;);
+                        }
+                    }
+                    if (value != undefined) {break;}
+                }
+                if (value != undefined) {
+                    r = &#34;{{&#34; + lookFor + &#34;}}&#34;;
+                    if (typ == &#34;attribute&#34;) {
+                        rowClone.value = rowClone.value.replace(r, value);
+                    } else {
+                        w3_replace_html(rowClone, r, value);
+                    }
+                }
+                pos1 = pos1 + 1;
+            }
+            return rowClone;
+        }
+        function w3_replace_html(a, r, result) {
+            var b, l, i, a, x, j;
+            if (a.hasAttributes()) {
+                b = a.attributes;
+                l = b.length;
+                for (i = 0; i &lt; l; i += 1) {
+                    if (b[i].value.indexOf(r) &gt; -1) {b[i].value = b[i].value.replace(r, result);}
+                }
+            }
+            x = a.getElementsByTagName(&#34;*&#34;);
+            l = x.length;
+            a.innerHTML = a.innerHTML.replace(r, result);
+        }
+    };
+" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true"/>
+    </context>
+  </template>
+  <template name="websocket" value="
+&lt;div id=&#34;navbar&#34;&gt;
+    &lt;select id=&#34;fileSelect&#34; onchange=&#34;loadFile()&#34;&gt;
+        &lt;option value=&#34;&#34;&gt;Select a file&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;div id=&#34;iconContainer&#34;&gt;
+        &lt;div class=&#34;icon&#34;
+             onclick=&#34;setIframeWidth(&#39;mobile&#39;)&#34;&gt;
+            &lt;i class=&#34;fas fa-mobile-alt&#34;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;icon&#34;
+             onclick=&#34;setIframeWidth(&#39;tablet&#39;)&#34;&gt;
+            &lt;i class=&#34;fas fa-tablet-alt&#34;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;icon&#34;
+             onclick=&#34;setIframeWidth(&#39;fullscreen&#39;)&#34;&gt;
+            &lt;i class=&#34;fas fa-desktop&#34;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;iframe id=&#34;contentFrame&#34; src=&#34;http://localhost:8080&#34;&gt;&lt;/iframe&gt;
+ 
+&lt;!-- 
+const socket = new WebSocket(&#34;ws://localhost:8080/ws&#34;);
+socket.onmessage = function(event) {
+    if (event.data === &#34;reload&#34;) {
+        document.getElementById(&#39;contentFrame&#39;).contentWindow.location.reload();
+    }
+};
+socket.onclose = function() {
+    console.log(&#34;WebSocket closed, attempting to reconnect...&#34;);
+    setTimeout(() =&gt; window.location.reload(), 3000);
+};
+
+function setIframeWidth(device) {
+    var iframe = document.getElementById(&#39;contentFrame&#39;);
+    switch (device) {
+        case &#39;mobile&#39;:
+            iframe.style.width = &#39;375px&#39;;
+            iframe.style.left = &#39;0&#39;;
+            iframe.style.right = &#39;0&#39;;
+            iframe.style.margin = &#39;auto&#39;;
+            break;
+        case &#39;tablet&#39;:
+            iframe.style.width = &#39;768px&#39;;
+            iframe.style.left = &#39;0&#39;;
+            iframe.style.right = &#39;0&#39;;
+            iframe.style.margin = &#39;auto&#39;;
+            break;
+        default:
+            iframe.style.width = &#39;100%&#39;;
+            iframe.style.left = &#39;0&#39;;
+            iframe.style.right = &#39;0&#39;;
+            iframe.style.margin = &#39;0&#39;;
+    }
+    localStorage.setItem(&#39;device&#39;, device);
+}
+--&gt;
+" description="" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true"/>
+    </context>
+  </template>
+</templateSet>
