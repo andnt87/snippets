@@ -132,3 +132,8 @@ After generating these files, the tool copies them to your VS Code snippets dire
 
 - **Snippet Folder Requirements:**  
   Ensure that the snippet directory contains only subdirectories whose names match the VS Code snippet language identifiers (e.g., `go`, `css`, `html`, `js`).
+
+- **JetBrains Snippets:**
+  The application generate also JetBrain snippets. 
+
+  > I haven't test the generated `xml` files
