@@ -28,7 +28,9 @@ func main() {
 ```
 </pre> 
 
-> Run the app (see below) and a `go.json` file will be generated and moved to vscode snippets directory (see below).
+Run the app (see below) and a `go.json` file will be generated and moved to vscode snippets directory (see below).
+
+⚠️ Note that the name of snippet must contain three `###` characters.
 
 ## Table of Contents
 
