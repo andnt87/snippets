@@ -2,6 +2,34 @@
 
 A terminal application written in Go that converts Markdown files into Visual Studio Code snippets. This tool reads Markdown files from a specified directory structure and generates JSON snippet files that can be directly used by VS Code.
 
+## Markdown Example
+
+<pre>
+
+### snippet name
+
+```go
+package main
+import "fmt"
+func main() {
+    fmt.Println("Hello, World!")
+}
+
+```
+
+### another snippet name
+
+```go
+package main
+import "fmt"
+func main() {
+    fmt.Println("Another snippet!")
+}
+```
+</pre> 
+
+> Run the app (see below) and a `go.json` file will be generated and moved to vscode snippets directory (see below).
+
 ## Table of Contents
 
 - [Features](#features)
